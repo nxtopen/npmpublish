@@ -1,6 +1,6 @@
-name: Check Plugin Version
+name: NPM Plugin Version Check
 description: A GitHub Actions workflow to check the existence of a plugin on npm.
-author: Your Name
+author: NxtOpen
 inputs:
   package-json-path:
     description: 'Path to the package.json file. Default is the root folder.'
@@ -20,15 +20,21 @@ runs:
         
         version=$(jq -r '.version' $package_json_path)
         echo "::set-output name=version::$version"
+        echo "::set-output name=name::$(jq -r '.name' $package_json_path)"
 
     - name: Check Plugin Version
       shell: bash
       id: check-plugin
       run: |
         version=${{ steps.read-package.outputs.version }}
-        npm view your-plugin-name@$version version >/dev/null 2>&1
+        npm view ${{ steps.read-package.outputs.name }}@$version version >/dev/null 2>&1
         if [ $? -eq 0 ]; then
           echo "Plugin exists with version $version"
+          exit 1
         else
           echo "Plugin does not exist with version $version, proceeding..."
         fi
+
+    - name: Plugin Exists
+      if: steps.check-plugin.outcome == 'failure'
+      run: exit 1
