@@ -1,4 +1,4 @@
-name: NPM Check
+name: NPM PackValid
 description: A GitHub Actions workflow to check the existence of a plugin on npm.
 author: NxtOpen
 inputs:
