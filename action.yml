@@ -36,5 +36,6 @@ runs:
         fi
 
     - name: Plugin Exists
+      shell: bash
       if: steps.check-plugin.outcome == 'failure'
       run: exit 1
