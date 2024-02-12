@@ -8,12 +8,30 @@ inputs:
   version:
     description: 'Version of the plugin to check.'
     required: true
+  package-json-path:
+    description: 'Path to the package.json file. Default is the root folder.'
+    required: false
 runs:
   using: 'composite'
   steps:
-    - run: |
-        version=$(echo "${{ inputs.version }}")
-        if npm show ${{ inputs.plugin-name }}@$version version >/dev/null 2>&1; then
+    - name: Read package.json
+      id: read-package
+      run: |
+        if [ -z "${{ inputs.package-json-path }}" ]; then
+          package_json_path="package.json"
+        else
+          package_json_path="${{ inputs.package-json-path }}"
+        fi
+        
+        version=$(jq -r '.version' $package_json_path)
+        echo "::set-output name=version::$version"
+
+    - name: Check Plugin Version
+      id: check-plugin
+      run: |
+        version=${{ steps.read-package.outputs.version }}
+        npm view ${{ inputs.plugin-name }}@$version version >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
           echo "Plugin exists with version $version"
         else
           echo "Plugin does not exist with version $version, proceeding..."
