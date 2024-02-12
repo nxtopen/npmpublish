@@ -9,6 +9,7 @@ runs:
   using: 'composite'
   steps:
     - name: Read package.json
+      shell: bash
       id: read-package
       run: |
         if [ -z "${{ inputs.package-json-path }}" ]; then
@@ -21,6 +22,7 @@ runs:
         echo "::set-output name=version::$version"
 
     - name: Check Plugin Version
+      shell: bash
       id: check-plugin
       run: |
         version=${{ steps.read-package.outputs.version }}
