@@ -2,12 +2,6 @@ name: Check Plugin Version
 description: A GitHub Actions workflow to check the existence of a plugin on npm.
 author: Your Name
 inputs:
-  plugin-name:
-    description: 'Name of the plugin to check.'
-    required: true
-  version:
-    description: 'Version of the plugin to check.'
-    required: true
   package-json-path:
     description: 'Path to the package.json file. Default is the root folder.'
     required: false
@@ -30,7 +24,7 @@ runs:
       id: check-plugin
       run: |
         version=${{ steps.read-package.outputs.version }}
-        npm view ${{ inputs.plugin-name }}@$version version >/dev/null 2>&1
+        npm view your-plugin-name@$version version >/dev/null 2>&1
         if [ $? -eq 0 ]; then
           echo "Plugin exists with version $version"
         else
