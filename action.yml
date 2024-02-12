@@ -1,4 +1,4 @@
-name: NPM Plugin Version Check
+name: NPM Check
 description: A GitHub Actions workflow to check the existence of a plugin on npm.
 author: NxtOpen
 inputs:
