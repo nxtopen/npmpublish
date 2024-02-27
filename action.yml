@@ -1,5 +1,5 @@
 name: npmPublish
-description: A GitHub Actions workflow to check the existence of a plugin on npm.
+description: A GitHub Actions workflow to validate and publish package to NPM.
 author: NxtOpen
 branding:
   icon: 'package'
