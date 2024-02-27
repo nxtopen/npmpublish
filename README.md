@@ -1,1 +1,1 @@
-# npm-version-check
+# Publish NPM package with ease
