@@ -4,7 +4,7 @@ author: NxtOpen
 inputs:
   package-json-path:
     description: 'Path to the package.json file. Default is the root folder.'
-    required: false
+    required: true
 runs:
   using: 'composite'
   steps:
