@@ -1,6 +1,9 @@
 name: npmPublish
 description: A GitHub Actions workflow to check the existence of a plugin on npm.
 author: NxtOpen
+branding:
+  icon: 'award'
+  color: 'green'
 inputs:
   package-json-path:
     description: 'Path to the package.json file. Default is the root folder.'
